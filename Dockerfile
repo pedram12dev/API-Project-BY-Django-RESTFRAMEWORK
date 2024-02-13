@@ -1,4 +1,4 @@
-FROM python:3.12.2-alpine3.18
+FROM python:alpine3.19
 LABEL maintainer = "pedram najafi"
 
 ENV PYTHONUNBUFFERED 1
@@ -9,7 +9,7 @@ COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
 
-RUN echo -e "http://nl.alpinelinux.org/alpine/v3.18/main\nhttp://nl.alpinelinux.org/alpine/v3.18/community" > /etc/apk/repositories
+RUN echo -e "http://nl.alpinelinux.org/alpine/v3.19/main\nhttp://nl.alpinelinux.org/alpine/v3.19/community" > /etc/apk/repositories
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache postgresql-client && \

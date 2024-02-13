@@ -2,4 +2,3 @@ Django >= 4
 djangorestframework >= 3.14
 
 psycopg2
-psycopg2-binary
