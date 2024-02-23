@@ -65,10 +65,19 @@ class PrivateIngredientApiTests(TestCase):
 
     def test_update_ingredient(self):
         """test updating an ingredient"""
-        ingredient = Ingredient.objects.create(user=self.user , name='Dolme')
-        payload = {'name':'zardchoobe'}
+        ingredient = Ingredient.objects.create(user=self.user, name='Dolme')
+        payload = {'name': 'zardchoobe'}
         url = detail_url(ingredient.id)
-        res = self.client.patch(url , payload)
+        res = self.client.patch(url, payload)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         ingredient.refresh_from_db()
-        self.assertEqual(ingredient.name , payload['name'])
+        self.assertEqual(ingredient.name, payload['name'])
+
+    def test_delete_ingredient(self):
+        """test deleting an ingredient"""
+        ingredient = Ingredient.objects.create(user=self.user, name='geshniz')
+        url = detail_url(ingredient.id)
+        res = self.client.delete(url)
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        ingredients = Ingredient.objects.filter(user=self.user)
+        self.assertFalse(ingredients.exists())
